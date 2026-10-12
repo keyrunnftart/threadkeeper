@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // threadkeeper .. turns X threads into a reading page. zero deps.
 // MCP (stdio):  node server.mjs
-// CLI build:    node server.mjs build suzanne
+// CLI build:    node server.mjs build <handle>
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -124,7 +124,7 @@ const TOOLS = [
 ];
 
 if (process.argv[2] === 'build') {
-  console.log(buildPage(process.argv[3] || 'suzanne'));
+  console.log(buildPage(process.argv[3] || 'keyrunnftart'));
 } else if (process.argv[2] === 'add') {
   // threadkeeper add <link-to-last-post>  → saves threads/<handle>/… and rebuilds dist/<handle>/index.html
   const t = await fetchThread({ url: process.argv[3] });

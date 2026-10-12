@@ -3,7 +3,7 @@
 Turn your X threads into a calm reading page: cards, tags, search, one link per thread.
 An MCP server and CLI in one file. No dependencies, no X login, no API key.
 
-Live example: [keyrunnft.art/threads/nf_suzanne](https://keyrunnft.art/threads/nf_suzanne)
+Live example: [keyrunnft.art/threads/keyrunnftart](https://keyrunnft.art/threads/keyrunnftart)
 No-code version (paste a link, done): [keyrunnft.art/threads](https://keyrunnft.art/threads)
 
 ## What you need
