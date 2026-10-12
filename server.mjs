@@ -41,7 +41,12 @@ async function fetchThread({ url, title, tags = [] }) {
       video: media.some(m => m.type !== 'photo') });
     id = j.in_reply_to_screen_name === writer ? j.in_reply_to_status_id_str : null;
   }
-  title ||= posts[0].text.split('\n')[0].replace(/\.?\s*A thread.*$/i, '').replace(/@(\w+)/g, '$1').trim().replace(/[.,:]+$/, '');
+  if (!title) {
+    title = posts[0].text.split('\n')[0].replace(/^\s*1\/\d*\s*/, '').replace(/\.?\s*A thread.*$/i, '').replace(/@(\w+)/g, '$1').trim();
+    title = title.split(/(?<=[.!?])\s|\s\.\.\s/)[0];
+    if (title.length > 80) title = title.slice(0, 80).replace(/\s+\S*$/, '');
+    title = title.replace(/[.,:;!?]+$/, '');
+  }
   return { writer, name, title, tags, artists: [...new Set(posts.flatMap(p => [...p.text.matchAll(/@(\w+)/g)].map(m => m[1])))], posts };
 }
 
