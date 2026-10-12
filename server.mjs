@@ -35,7 +35,8 @@ async function fetchThread({ url, title, tags = [] }) {
     const j = await r.json();
     writer ||= j.user?.screen_name; name ||= j.user?.name;
     const media = (j.mediaDetails || []);
-    posts.unshift({ id: j.id_str, time: j.created_at, text: (j.text || '').replace(/\s*https:\/\/t\.co\/\w+$/, ''),
+    posts.unshift({ id: j.id_str, time: j.created_at, text: (j.entities?.urls || []).reduce((s, u) => s.replaceAll(u.url, u.expanded_url || u.display_url), j.text || '')
+      .replace(/\s*https:\/\/t\.co\/\w+$/, '').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>'),
       img: media.filter(m => m.type === 'photo').map(m => { const u = new URL(m.media_url_https); return u.pathname.split('/').pop(); }),
       video: media.some(m => m.type !== 'photo') });
     id = j.in_reply_to_screen_name === writer ? j.in_reply_to_status_id_str : null;
